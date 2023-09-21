@@ -1,3 +1,22 @@
+
+## Docker Setup
+As you can see the Docker compose and Dockerfile are already setup.
+Before Dockerizing make sure to install Docker
+
+Then you can clone this repo and run this command : 
+```bash
+$ docker compose up --build -d
+```
+
+This will make a docker container up for you and you can access the api via the port 3000.
+
+## Scalablity
+AWS SNS Receives the messages to publish and payload data which can then to sent to SQS Queue to avoid loss of any messages in case there is an overload ,and then can be processed one by one.
+Alternatively we can write custom logics in Lambda function that would trigger when messages are there in SQS Queue to process and then send messages to the user.
+
+This would be great to scalabilty and in case we will have failures during message process we will always have dead letter queue ,we can retry sending message,by setting a max threshold with maximum retry.
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -58,16 +77,3 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
