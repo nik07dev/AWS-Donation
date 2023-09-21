@@ -23,7 +23,7 @@ export class DonationService {
     response: Response,
   ): Promise<Response> {
     try {
-      const countOfDonationsByUser =
+      const { countOfDonationsByUser, userPhoneNumber } =
         await this.donationRepository.getCountOfDonation(userId);
 
       if (countOfDonationsByUser < 2) {
@@ -34,6 +34,7 @@ export class DonationService {
       const params: AWS.SNS.PublishInput = {
         TopicArn: process.env.SNS_DONATION_MESSAGE_TOPIC,
         Message: 'Thanks for your donation!!',
+        PhoneNumber: userPhoneNumber,
       };
 
       await this.sns.publish(params).promise();
